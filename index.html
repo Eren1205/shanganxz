@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>上岸 - 公考考研一站式备考助手</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #C8102E;
+  --primary-light: #E63946;
+  --dark: #1A1A2E;
+  --light: #FFFFFF;
+  --gray: #6B7280;
+  --bg: #FAFAFA;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--dark);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* 导航栏 */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 16px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--primary);
+}
+
+/* Hero 区域 */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 5% 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 50%, rgba(200, 16, 46, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(200, 16, 46, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 40% 80%, rgba(200, 16, 46, 0.04) 0%, transparent 50%);
+  z-index: -1;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: rgba(200, 16, 46, 0.1);
+  color: var(--primary);
+  border-radius: 99px;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;
+  animation: fadeInUp 0.8s ease 0.1s both;
+}
+
+.hero h1 .highlight {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--gray);
+  margin-bottom: 40px;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-bottom: 48px;
+  animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.stat-label {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+.download-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.download-btn.primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  box-shadow: 0 8px 24px rgba(200, 16, 46, 0.3);
+}
+
+.download-btn.primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(200, 16, 46, 0.4);
+}
+
+.download-btn.secondary {
+  background: white;
+  color: var(--dark);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.download-btn.secondary:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* 功能特性 */
+.features {
+  padding: 100px 5%;
+  background: white;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.section-title h2 {
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.section-title p {
+  font-size: 18px;
+  color: var(--gray);
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature-card {
+  padding: 32px;
+  background: var(--bg);
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.feature-icon {
+  width: 56px;
+  height: 56px;
+  background: rgba(200, 16, 46, 0.1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.feature-card p {
+  color: var(--gray);
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* 下载区域 */
+.download-section {
+  padding: 100px 5%;
+  background: linear-gradient(135deg, var(--dark) 0%, #2D2D44 100%);
+  color: white;
+}
+
+.download-section .section-title h2 {
+  color: white;
+}
+
+.download-section .section-title p {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.download-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 32px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.download-card {
+  padding: 40px 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.download-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-4px);
+}
+
+.download-card-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 24px;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 36px;
+}
+
+.download-card h3 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.download-card p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 24px;
+  font-size: 14px;
+}
+
+.download-card .btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: white;
+  color: var(--dark);
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.download-card .btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+}
+
+/* 页脚 */
+.footer {
+  padding: 40px 5%;
+  text-align: center;
+  color: var(--gray);
+  font-size: 14px;
+}
+
+/* 动画 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  
+  .hero {
+    padding: 100px 5% 60px;
+  }
+  
+  .hero-stats {
+    gap: 24px;
+  }
+  
+  .stat-number {
+    font-size: 28px;
+  }
+  
+  .download-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .download-btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+}
+
+/* 滚动动画 */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- 导航栏 -->
+<nav class="navbar">
+  <div class="logo">
+    <img src="icon.png" alt="上岸" class="logo-icon">
+    上岸
+  </div>
+  <div class="nav-links">
+    <a href="#features">功能特性</a>
+    <a href="#download">立即下载</a>
+  </div>
+</nav>
+
+<!-- Hero 区域 -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✨ 已有 <span id="userCount">0</span> 人在上岸等你</div>
+    <h1>专注备考，<br><span class="highlight">上岸有你</span></h1>
+    <p>公考 · 考研 一站式备考助手<br>任务管理 · 番茄钟 · 复盘笔记 · 数据统计</p>
+    
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">10,000+</div>
+        <div class="stat-label">专注时长（小时）</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">50,000+</div>
+        <div class="stat-label">完成任务（个）</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">好评率</div>
+      </div>
+    </div>
+    
+    <div class="download-buttons">
+      <a href="#download" class="download-btn primary">
+        📱 立即下载
+      </a>
+      <a href="#features" class="download-btn secondary">
+        了解更多
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 功能特性 -->
+<section class="features" id="features">
+  <div class="section-title reveal">
+    <h2>为什么选择上岸？</h2>
+    <p>专为备考党设计的一站式工具</p>
+  </div>
+  
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">📋</div>
+      <h3>智能任务管理</h3>
+      <p>支持普通任务和艾宾浩斯复习任务，自动同步到每日计划，科学规划备考进度。</p>
+    </div>
+    
+    <div class="feature-card reveal">
+      <div class="feature-icon">⏱️</div>
+      <h3>专注番茄钟</h3>
+      <p>沉浸式专注模式，沙漏动画，息屏也能计时，帮你保持高效专注。</p>
+    </div>
+    
+    <div class="feature-card reveal">
+      <div class="feature-icon">📝</div>
+      <h3>复盘笔记</h3>
+      <p>小红书式卡片布局，支持图片上传和编辑，记录每一天的成长。</p>
+    </div>
+    
+    <div class="feature-card reveal">
+      <div class="feature-icon">📊</div>
+      <h3>数据统计</h3>
+      <p>日/周/月多维度统计，可视化图表展示刷题量和正确率，进步看得见。</p>
+    </div>
+    
+    <div class="feature-card reveal">
+      <div class="feature-icon">🎨</div>
+      <h3>个性化主题</h3>
+      <p>多种主题色可选，支持深色模式，柔光玻璃和轻透磨砂风格，打造专属你的备考空间。</p>
+    </div>
+    
+    <div class="feature-card reveal">
+      <div class="feature-icon">🔒</div>
+      <h3>本地存储</h3>
+      <p>所有数据保存在本机，安全隐私，无需注册登录，打开就能用。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 下载区域 -->
+<section class="download-section" id="download">
+  <div class="section-title reveal">
+    <h2>立即开始你的备考之旅</h2>
+    <p>选择适合你的版本，开启上岸之路</p>
+  </div>
+  
+  <div class="download-cards">
+    <div class="download-card reveal">
+      <div class="download-card-icon">🤖</div>
+      <h3>Android 版</h3>
+      <p>适用于安卓手机和平板</p>
+      <a href="上岸-debug.apk" class="btn" onclick="trackDownload('android')">下载 APK</a>
+    </div>
+    
+    <div class="download-card reveal">
+      <div class="download-card-icon">💻</div>
+      <h3>Windows 版</h3>
+      <p>适用于 Windows 电脑</p>
+      <a href="上岸 Setup 1.4.0.exe" class="btn" onclick="trackDownload('windows')">下载 EXE</a>
+    </div>
+    
+    <div class="download-card reveal">
+      <div class="download-card-icon">🍎</div>
+      <h3>iOS 版</h3>
+      <p>适用于 iPhone 和 iPad</p>
+      <a href="上岸-ios.mobileconfig" class="btn" onclick="trackDownload('ios')">下载描述文件</a>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <p>© 2026 上岸 · 公考考研一站式备考助手</p>
+  <p style="margin-top: 8px;">数据仅保存在本机 · 无需注册登录</p>
+</footer>
+
+<script>
+// 用户统计 - 模拟实时更新
+function updateUserCount() {
+  let count = localStorage.getItem('shangan_user_count_v2');
+  if (!count) {
+    // 初始用户数
+    count = 0;
+  }
+  // 每次访问随机增加 3-8 人
+  const increment = Math.floor(Math.random() * 6) + 3;
+  count = parseInt(count) + increment;
+  localStorage.setItem('shangan_user_count_v2', count);
+  document.getElementById('userCount').textContent = count.toLocaleString();
+  
+  // 每 5 秒随机增加 1-3 人，模拟实时增长
+  setInterval(function() {
+    count = parseInt(localStorage.getItem('shangan_user_count_v2')) + Math.floor(Math.random() * 3) + 1;
+    localStorage.setItem('shangan_user_count_v2', count);
+    document.getElementById('userCount').textContent = count.toLocaleString();
+  }, 5000);
+}
+
+// 自动检测设备并下载
+function autoDownload() {
+  const ua = navigator.userAgent;
+  let platform = 'android';
+  let url = '上岸-debug.apk';
+  
+  if (/Windows/i.test(ua)) {
+    platform = 'windows';
+    url = '上岸 Setup 1.4.0.exe';
+  } else if (/iPhone|iPad|iPod/i.test(ua)) {
+    platform = 'ios';
+    url = '上岸-ios.mobileconfig';
+  } else if (/Android/i.test(ua)) {
+    platform = 'android';
+    url = '上岸-debug.apk';
+  }
+  
+  trackDownload(platform);
+  window.location.href = url;
+}
+
+// 追踪下载点击
+function trackDownload(platform) {
+  let count = localStorage.getItem('shangan_download_count_' + platform);
+  if (!count) {
+    count = 0;
+  }
+  count = parseInt(count) + 1;
+  localStorage.setItem('shangan_download_count_' + platform, count);
+  console.log('下载点击：' + platform + '，累计：' + count);
+}
+
+// 滚动动画
+function revealOnScroll() {
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach(el => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    const elementVisible = 150;
+    
+    if (elementTop < windowHeight - elementVisible) {
+      el.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', () => {
+  updateUserCount();
+  revealOnScroll();
+});
+</script>
+
+</body>
+</html>
